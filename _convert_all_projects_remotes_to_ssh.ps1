@@ -1,8 +1,10 @@
 #!/usr/bin/env pwsh
 
 Param(
-    [Parameter(Mandatory = $false)] [string] $dir = $(resolve-path "$PSScriptRoot\..")
+    [Parameter(Mandatory = $false)] [string] $dir = $null
 )
+
+Import-Module .\pwsh__Io\Io.psm1 -force
 
 
 function confirmAll([string] $dir) {
@@ -26,6 +28,9 @@ function confirm([string] $dir, [string] $command) {
     return $decision -eq 0
 }
 
+$dir = if ($dir) { $dir } else { Get-FolderBrowserDialog $PWD }
+$dir = if ($dir) { $dir } else { $PWD }
+$dir = Resolve-Path $dir
 Write-Host "Projects folder = $dir"
 $globalConfirmation = confirmAll $dir
 
