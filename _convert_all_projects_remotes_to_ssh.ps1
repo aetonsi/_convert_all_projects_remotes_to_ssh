@@ -4,7 +4,7 @@ Param(
     [Parameter(Mandatory = $false)] [string] $dir = $null
 )
 
-Import-Module .\pwsh__Io\Io.psm1 -force
+Import-Module "$PSScriptRoot\pwsh__Io\Io.psm1" -force
 
 
 function confirmAll([string] $dir) {
